@@ -1,0 +1,6 @@
+%form(action="/search" method="GET")
+  %input(name="q" type="text"){:value => params["q"]}
+    
+%ul#queue
+  - @tracks.each do |track|
+    %li #{track.name}, #{track.artist}, #{track.album}
