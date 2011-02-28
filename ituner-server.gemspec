@@ -24,5 +24,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "ituner"
   s.add_runtime_dependency "sinatra"
   s.add_runtime_dependency "haml"
+  s.add_runtime_dependency "sequel"
+  s.add_runtime_dependency "sqlite3"
 
 end

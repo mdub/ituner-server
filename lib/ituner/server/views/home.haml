@@ -1,6 +1,12 @@
-%form(action="/search" method="GET")
-  %input(name="q" type="text"){:value => params["q"]}
-    
-%ul#queue
-  - @tracks.each do |track|
-    %li #{track.name}, #{track.artist}, #{track.album}
+- if @current_track
+  %section#current-track
+    %h1 Now playing
+    %p #{@current_track.name} by #{@current_track.artist}
+
+%section#requests
+  %h1 Requests
+  
+  %h2 Add one
+  %form(action="/search" method="GET")
+    %input(name="q" type="text" size="60"){:value => params["q"]}
+  
