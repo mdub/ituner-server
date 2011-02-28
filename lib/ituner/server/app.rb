@@ -18,3 +18,7 @@ get '/search' do
   @tracks = ITuner.itunes.music.search(name)
   haml :home
 end
+
+get '/style.css' do
+  scss :style
+end
