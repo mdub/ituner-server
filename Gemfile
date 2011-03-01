@@ -4,6 +4,7 @@ source "http://rubygems.org"
 gemspec
 
 gem "ituner", :path => "../ituner"
+gem "json"
 
 group :development do
   gem "sinatra-reloader"

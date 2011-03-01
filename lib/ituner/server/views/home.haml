@@ -8,5 +8,4 @@
   
   %h2 Add one
   %form(action="/search" method="GET")
-    %input(name="q" type="text" size="60"){:value => params["q"]}
-  
+    %input#track-search(name="q" type="text" size="60"){:value => params["q"]}

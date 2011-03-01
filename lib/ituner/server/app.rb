@@ -1,5 +1,6 @@
 require 'haml'
 require 'ituner'
+require 'json'
 require 'sinatra'
 require 'sinatra/reloader' if development?
 
@@ -13,12 +14,19 @@ get '/' do
   haml :home
 end
 
-get '/search' do
-  name = params["q"]
+get '/search.json' do
+
+  name = params["term"]
   @tracks = ITuner.itunes.music.search(name)
-  haml :home
+
+  @track_data = @tracks.map(&:name)
+
+  content_type :json
+  @track_data.to_json
+
 end
 
 get '/style.css' do
   scss :style
 end
+
