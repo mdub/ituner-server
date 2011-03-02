@@ -2,10 +2,29 @@
   %section#current-track
     %h1 Now playing
     %p #{@current_track.name} by #{@current_track.artist}
+    %div.playpause
+      - if playing?
+        PLAYING
+      - else
+        PAUSED
 
 %section#requests
   %h1 Requests
-  
-  %h2 Add one
-  %form(action="/search" method="GET")
-    %input#track-search(name="q" type="text" size="60"){:value => params["q"]}
+
+%section#search
+  %h1 Search
+  %form(method="GET")
+    %input#track-search(name="term" type="text" size="60"){:value => params["term"]}
+  - if @search_results
+    %form(method="POST" action="/request")
+      %ul.results
+        - @search_results.each do |track|
+          %li 
+            %label
+              %input(type="checkbox" name="select" value="#{track.uid}")
+                %span.name= track.name
+                \- 
+                %span.artist= track.artist
+                \- 
+                %span.album= track.album
+      %input(type='submit' value='Request')
