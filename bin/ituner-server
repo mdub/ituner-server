@@ -1,0 +1,4 @@
+#! /usr/bin/env ruby
+
+require 'ituner/server/app'
+Sinatra::Application.run!
