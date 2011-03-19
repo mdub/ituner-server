@@ -1,8 +1,9 @@
 require "rubygems"
 require "bundler/setup"
 
-require "rack/test"
 require "rspec"
+require "rack/test"
+require 'rspec/rails/views/matchers'
 
 require 'ituner/server/app'
 

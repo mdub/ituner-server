@@ -14,3 +14,4 @@ end
 gem "rake"
 gem "rspec"
 gem "rack-test"
+gem "rspec2-rails-views-matchers"

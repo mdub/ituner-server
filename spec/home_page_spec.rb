@@ -15,9 +15,12 @@ describe ITuner::Server::App do
     
     it "displays current track" do
       get "/"
-      last_response.body.should include("Freddie Freeloader")
+      last_response.body.should have_tag("#current-track") do
+        with_tag("h1", :text => "Now playing")
+        with_tag("p", :text => /Freddie Freeloader/)
+      end
     end
   
   end
-
+  
 end
