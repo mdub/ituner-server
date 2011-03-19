@@ -7,8 +7,10 @@ gem "ituner", :path => "../ituner"
 gem "json"
 
 group :development do
+  gem "thin"
   gem "sinatra-reloader"
 end
 
 gem "rake"
 gem "rspec"
+gem "rack-test"
