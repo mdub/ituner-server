@@ -1,4 +1,4 @@
 #! /usr/bin/env ruby
 
 require 'ituner/server/app'
-ITuner::Server::App.run!
+ITuner::Server::App.run!(:server => "thin", :port => 3127)
