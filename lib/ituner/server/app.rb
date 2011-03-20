@@ -70,10 +70,8 @@ module ITuner
         haml :home
       end
 
-      get '/search.json' do
-        @search_results = (search || [])
-        content_type :json
-        @search_results.map(&method(:track_data)).to_json
+      get '/search', :provides => 'json' do
+        (search || []).map(&method(:track_data)).to_json
       end
       
       post "/request" do
