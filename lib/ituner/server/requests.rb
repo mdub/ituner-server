@@ -23,6 +23,14 @@ module ITuner
           create(:track_uid => track.uid)
         end
         
+        def play_next
+          next_request = first
+          if next_request
+            next_request.track.play
+            next_request.delete
+          end
+        end
+        
       end
       
       def track

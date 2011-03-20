@@ -64,10 +64,13 @@ describe ITuner::Server::App, :type => :acceptance do
     end
 
     it "adds it to the requests" do
-      pending
       within("#requests") do
-        page.should contain(@selected_track_name)
+        page.should have_content(@selected_track_name)
       end
+    end
+
+    it "ensures that something is playing" do
+      ITuner.itunes.should be_playing
     end
 
   end

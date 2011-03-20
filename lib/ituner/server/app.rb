@@ -41,6 +41,10 @@ module ITuner
         def playing?
           ITuner.itunes.playing?
         end
+        
+        def keep_playing
+          Requests.play_next unless playing? 
+        end
 
       end
 
@@ -49,17 +53,20 @@ module ITuner
       end
 
       get '/' do
+        keep_playing
         @current_track = ITuner.itunes.current_track
+        @requests = Requests.all
         search
         haml :home
       end
-
-      # get '/search.json' do
-      #   search
-      #   @track_data = @tracks.map(&:name)
-      #   content_type :json
-      #   @track_data.to_json
-      # end
+      
+      post "/request" do
+        params["track_uids"].each do |track_uid|
+          track = ITuner::Track.find_by_uid(Integer(track_uid))
+          Requests.add_track(track)
+        end
+        redirect to("/")
+      end
 
     end
   end

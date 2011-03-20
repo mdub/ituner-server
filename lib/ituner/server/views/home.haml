@@ -8,8 +8,12 @@
       - else
         PAUSED
 
-%section#requests
-  %h1 Requests
+- if @requests
+  %section#requests
+    %h1 Requests
+    %ul
+      - @requests.each do |request|
+        %li= request.track.name
   
 %section#search
   %h1 Search
@@ -23,7 +27,7 @@
         - @search_results.each do |track|
           %li 
             %label
-              %input(type="checkbox" name="select" value="#{track.uid}")
+              %input(type="checkbox" name="track_uids[]" value="#{track.uid}")
               %span.name= track.name
               \- 
               %span.artist= track.artist
