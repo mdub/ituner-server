@@ -3,7 +3,7 @@ require 'ituner'
 require 'json'
 require 'sinatra/base'
 require 'sinatra/reloader'
-require 'ituner/server/database'
+require 'ituner/server/requests'
 
 module ITuner
   module Server

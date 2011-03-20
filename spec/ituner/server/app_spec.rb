@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe ITuner::Server::App, :type => :acceptance do
-  
+
   before do
     @itunes = ITuner.itunes 
   end
@@ -13,7 +13,7 @@ describe ITuner::Server::App, :type => :acceptance do
       @track.play
       visit "/"
     end
-    
+
     it "displays current track" do
       page.body.should have_tag("#current-track") do
         with_tag("h1", :text => "Now playing")
@@ -26,9 +26,9 @@ describe ITuner::Server::App, :type => :acceptance do
         with_tag("input", :with => {:name => "term"})
       end
     end
-  
+
   end
-  
+
   describe "when I search for a track" do
 
     before do
@@ -38,13 +38,38 @@ describe ITuner::Server::App, :type => :acceptance do
         click_button("Search")
       end
     end
-  
+
     it "displays the matches" do
       page.body.should have_tag("#search .results") do
         with_tag("ul", :text => /Blue/, :minimum => 5)
       end
     end
-    
+
   end
-  
+
+  describe "when I request a track" do
+
+    before do
+      visit "/"
+      within("#search") do
+        fill_in("term", :with => "Blue")
+        click_button("Search")
+      end
+      within(".results") do
+        first_track = page.find("li")
+        first_track.find("input[type='checkbox']").set(true)
+        @selected_track_name = first_track.find(".name").text
+      end
+      click_button("Request")
+    end
+
+    it "adds it to the requests" do
+      pending
+      within("#requests") do
+        page.should contain(@selected_track_name)
+      end
+    end
+
+  end
+
 end

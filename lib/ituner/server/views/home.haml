@@ -10,7 +10,7 @@
 
 %section#requests
   %h1 Requests
-
+  
 %section#search
   %h1 Search
   %form(method="GET")
@@ -24,9 +24,9 @@
           %li 
             %label
               %input(type="checkbox" name="select" value="#{track.uid}")
-                %span.name= track.name
-                \- 
-                %span.artist= track.artist
-                \- 
-                %span.album= track.album
+              %span.name= track.name
+              \- 
+              %span.artist= track.artist
+              \- 
+              %span.album= track.album
       %input(type='submit' value='Request')
