@@ -2,11 +2,6 @@
   %section#current-track
     %h1 Now playing
     %p #{@current_track.name} by #{@current_track.artist}
-    %div.playpause
-      - if playing?
-        PLAYING
-      - else
-        PAUSED
 
 - if @requests
   %section#requests

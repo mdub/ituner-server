@@ -54,7 +54,9 @@ module ITuner
 
       get '/' do
         keep_playing
-        @current_track = ITuner.itunes.current_track
+        if playing?
+          @current_track = ITuner.itunes.current_track
+        end
         @requests = Requests.all
         search
         haml :home
