@@ -34,13 +34,15 @@ describe ITuner::Server::App, :type => :acceptance do
     before do
       visit "/"
       within("#search") do
-        fill_in("term", :with => "Food")
+        fill_in("term", :with => "Blue")
         click_button("Search")
       end
     end
   
     it "displays the matches" do
-      page.body.should have_tag("#search .results")
+      page.body.should have_tag("#search .results") do
+        with_tag("ul", :text => /Blue/, :minimum => 5)
+      end
     end
     
   end
