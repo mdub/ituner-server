@@ -20,9 +20,22 @@ module ITuner
 
         def search
           search_term = params["term"]
-          if search_term
-            @search_results = ITuner.itunes.music.search(search_term)
+          return nil unless search_term
+          case search_term
+          when /^album:(.*)/
+            only = :albums
+            name = $1
+          when /^artist:(.*)/
+            only = :artists
+            name = $1
+          when /^(?:track|song|name):(.*)/
+            only = :songs
+            name = $1
+          else
+            only = :all
+            name = search_term
           end
+          @search_results = ITuner.itunes.music.search(name, only)
         end
 
         def playing?
