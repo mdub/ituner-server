@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   
   s.add_runtime_dependency "ituner"
-  s.add_runtime_dependency "sinatra"
+  s.add_runtime_dependency "sinatra", "~> 1.2.0"
   s.add_runtime_dependency "haml"
   s.add_runtime_dependency "sequel"
   s.add_runtime_dependency "sqlite3"
