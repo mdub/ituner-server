@@ -29,7 +29,7 @@ describe ITuner::Server::App, :type => :acceptance do
 
   end
 
-  describe "when I search for a track" do
+  describe "track search" do
 
     before do
       visit "/"
@@ -47,7 +47,7 @@ describe ITuner::Server::App, :type => :acceptance do
 
   end
 
-  describe "when I request a track" do
+  describe "track request" do
 
     before do
       visit "/"
@@ -71,6 +71,26 @@ describe ITuner::Server::App, :type => :acceptance do
 
     it "ensures that something is playing" do
       ITuner.itunes.should be_playing
+    end
+
+  end
+
+  describe "the kill button" do
+
+    before do
+      ITuner::Server::Requests.add_first_track_matching("Freddie Freeloader")
+      ITuner::Server::Requests.add_first_track_matching("Smells Like Teen Spirit")
+    end
+
+    it "stops the current song and starts the next one" do
+      visit "/"
+      page.body.should have_tag("#current-track p", :text => /Freddie Freeloader/)
+      pending do
+        within("#current-track") do
+          click_button("Kill")
+        end
+        page.body.should have_tag("#current-track p", :text => /Smells Like Teen Spirit/)
+      end
     end
 
   end

@@ -23,6 +23,10 @@ module ITuner
           create(:track_uid => track.uid)
         end
         
+        def add_first_track_matching(term)
+          add_track(ITuner.itunes.music.search(term).first)
+        end
+        
         def play_next
           next_request = first
           if next_request
