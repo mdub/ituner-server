@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe ITuner::Server::App do
-
+  
   before do
     @itunes = ITuner.itunes 
   end
