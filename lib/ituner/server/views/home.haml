@@ -14,9 +14,11 @@
 %section#search
   %h1 Search
   %form(method="GET")
-    %input#track-search(name="term" type="text" size="60"){:value => params["term"]}
+    %input(name="term" type="text" size="60"){:value => params["term"]}
+    %input(type='submit' value='Search')
   - if @search_results
-    %form(method="POST" action="/request")
+    %hr
+    %form#request(method="POST" action="/request")
       %ul.results
         - @search_results.each do |track|
           %li 

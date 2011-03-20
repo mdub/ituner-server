@@ -13,5 +13,6 @@ end
 
 gem "rake"
 gem "rspec"
-gem "rack-test"
+gem "capybara"
 gem "rspec2-rails-views-matchers"
+gem "launchy"

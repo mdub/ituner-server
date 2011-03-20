@@ -20,7 +20,7 @@ module ITuner
 
         def search
           search_term = params["term"]
-          return nil unless search_term
+          return nil if search_term.to_s.empty?
           case search_term
           when /^album:(.*)/
             only = :albums

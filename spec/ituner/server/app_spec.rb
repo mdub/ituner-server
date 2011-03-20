@@ -1,34 +1,48 @@
 require "spec_helper"
 
-describe ITuner::Server::App do
+describe ITuner::Server::App, :type => :acceptance do
   
   before do
     @itunes = ITuner.itunes 
   end
 
-  describe "/" do
+  describe "home-page" do
 
     before do
       @track = @itunes.library.tracks["Freddie Freeloader"]
       @track.play
-      get "/"
+      visit "/"
     end
     
     it "displays current track" do
-      last_response.body.should have_tag("#current-track") do
+      page.body.should have_tag("#current-track") do
         with_tag("h1", :text => "Now playing")
         with_tag("p", :text => /Freddie Freeloader/)
       end
     end
 
     it "supports searching" do
-      last_response.body.should have_tag("#search") do
-        with_tag("form") do
-          with_tag("input", :with => {:name => "term"})
-        end
+      page.body.should have_tag("#search form") do
+        with_tag("input", :with => {:name => "term"})
       end
     end
   
+  end
+  
+  describe "when I search for a track" do
+
+    before do
+      visit "/"
+      within("#search") do
+        fill_in("term", :with => "Food")
+        click_button("Search")
+      end
+    end
+  
+    it "displays the matches" do
+      page.body.should have_tag("#search .results")
+    end
+    
   end
   
 end
