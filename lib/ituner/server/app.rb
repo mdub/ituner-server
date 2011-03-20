@@ -35,7 +35,15 @@ module ITuner
             only = :all
             name = search_term
           end
-          @search_results = ITuner.itunes.music.search(name, only)
+          ITuner.itunes.music.search(name, only)
+        end
+
+        def track_data(track)
+          { 
+            :name => track.name,
+            :artist => track.artist,
+            :album => track.album,
+          }
         end
 
         def playing?
@@ -58,8 +66,14 @@ module ITuner
           @current_track = ITuner.itunes.current_track
         end
         @requests = Requests.all
-        search
+        @search_results = search
         haml :home
+      end
+
+      get '/search.json' do
+        @search_results = (search || [])
+        content_type :json
+        @search_results.map(&method(:track_data)).to_json
       end
       
       post "/request" do
