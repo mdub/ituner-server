@@ -53,6 +53,10 @@ module ITuner
         def keep_playing
           Requests.play_next unless playing? 
         end
+        
+        def track_detail(track)
+          haml :track_detail, :locals => {:track => track}
+        end
 
       end
 

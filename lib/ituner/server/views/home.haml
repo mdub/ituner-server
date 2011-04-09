@@ -1,31 +1,31 @@
-- if @current_track
-  %section#current-track
-    %h1 Now playing
-    %p #{@current_track.name} by #{@current_track.artist}
+.column
+  %section#queue.area
+    - if @current_track
+      %section#current-track
+        %h1 #{@current_track.name} 
+        %h2 by #{@current_track.artist}
+        %p #{@current_track.album}
 
-- if @requests
-  %section#requests
-    %h1 Requests
-    %ul
-      - @requests.each do |request|
-        %li= request.track.name
-  
-%section#search
-  %h1 Search
-  %form(method="GET")
-    %input(name="term" type="text" size="60"){:value => params["term"]}
-    %input(type='submit' value='Search')
-  - if @search_results
-    %hr
-    %form#request(method="POST" action="/request")
-      %ul.results
-        - @search_results.each do |track|
-          %li 
-            %label
-              %input(type="checkbox" name="track_uids[]" value="#{track.uid}")
-              %span.name= track.name
-              \- 
-              %span.artist= track.artist
-              \- 
-              %span.album= track.album
-      %input(type='submit' value='Request')
+    - if @requests
+      %section#requests
+        %h1 Requests
+        %ol
+          - @requests.each do |request|
+            %li.track= track_detail(request.track)
+
+
+.column
+  %section#search.area
+    %h1 Search
+    %form(method="GET")
+      %input(name="term" type="text" size="60"){:value => params["term"]}
+      %input(type='submit' value='Search')
+    - if @search_results
+      %hr
+      %form#request(method="POST" action="/request")
+        %ul.results
+          - @search_results.each do |track|
+            %li.track 
+              %label
+                %button(type="submit" name="track_uids[]" value="#{track.uid}") Request
+                = track_detail(track)

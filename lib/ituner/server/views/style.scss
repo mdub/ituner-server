@@ -1,16 +1,43 @@
+body {
+  font-family: "Helvetica";
+}
+
+.column {
+  display: block;
+  width: 50%;
+  float: left;
+  padding: 0;
+  margin: 0;
+}
+
+.area {
+  padding:0 10px;
+}
+
+
 #current-track {
-  border: 1px solid #333;
-  border-radius: 20px 10px;
-  background: #aaa;
-  padding: 10px;
+  background: #EFEFEF;
+  padding: 5px;
+}
+
+#requests {
+  ol {
+    padding-left: 25px;
+  }
 }
 
 #search .results {
   list-style: none;
   padding: 0;
+  margin-left: 20px;
   li {
+    position: relative;
     margin: 0.3em 0;
+    text-indent: -20px;
   }
+}
+
+.track {
   .name {
     font-weight: bold;
   }
