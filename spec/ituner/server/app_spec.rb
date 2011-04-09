@@ -16,8 +16,9 @@ describe ITuner::Server::App, :type => :acceptance do
 
     it "displays current track" do
       page.body.should have_tag("#current-track") do
-        with_tag("h1", :text => "Now playing")
-        with_tag("p", :text => /Freddie Freeloader/)
+        with_tag("h1", :text => /Freddie Freeloader/)
+        with_tag("h2", :text => /by Miles Davis/)
+        with_tag("p", :text => /Kind Of Blue/)
       end
     end
 
@@ -41,7 +42,7 @@ describe ITuner::Server::App, :type => :acceptance do
 
     it "displays the matches" do
       page.body.should have_tag("#search .results") do
-        with_tag("ul", :text => /Blue/, :minimum => 5)
+        with_tag("ul li", :text => /Blue/, :minimum => 5)
       end
     end
 
@@ -52,12 +53,11 @@ describe ITuner::Server::App, :type => :acceptance do
     before do
       visit "/"
       within("#search") do
-        fill_in("term", :with => "Blue")
+        fill_in("term", :with => "Kind Of Blue")
         click_button("Search")
       end
       within(".results") do
         first_track = page.find("li")
-        first_track.find("input[type='checkbox']").set(true)
         @selected_track_name = first_track.find(".name").text
       end
       click_button("Request")
@@ -79,17 +79,17 @@ describe ITuner::Server::App, :type => :acceptance do
 
     before do
       ITuner::Server::Requests.add_first_track_matching("Freddie Freeloader")
-      ITuner::Server::Requests.add_first_track_matching("Smells Like Teen Spirit")
+      ITuner::Server::Requests.add_first_track_matching("So What")
     end
 
     it "stops the current song and starts the next one" do
       visit "/"
-      page.body.should have_tag("#current-track p", :text => /Freddie Freeloader/)
+      page.body.should have_tag("#current-track h1", :text => /Freddie Freeloader/)
       pending do
         within("#current-track") do
           click_button("Kill")
         end
-        page.body.should have_tag("#current-track p", :text => /Smells Like Teen Spirit/)
+        page.body.should have_tag("#current-track h1", :text => /So What/)
       end
     end
 
