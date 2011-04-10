@@ -1,19 +1,15 @@
 body {
   font-family: "Helvetica";
-}
-
-.column {
-  display: block;
-  width: 50%;
-  float: left;
-  padding: 0;
-  margin: 0;
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .area {
-  padding:0 10px;
+  display: table-cell;
+  width: 50%;
+  padding: 0 10px;
 }
-
 
 #current-track {
   background: #EFEFEF;
