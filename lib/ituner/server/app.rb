@@ -83,7 +83,7 @@ module ITuner
           track = ITuner::Track.find_by_uid(Integer(track_uid))
           Requests.add_track(track)
         end
-        redirect to("/")
+        redirect to("/?term=#{Rack::Utils.escape(params["term"])}")
       end
 
     end

@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require "spec_helper"
 
 describe ITuner::Server::App, :type => :acceptance do
@@ -66,6 +68,12 @@ describe ITuner::Server::App, :type => :acceptance do
     it "adds it to the requests" do
       within("#requests") do
         page.should have_content(@selected_track_name)
+      end
+    end
+
+    it "retains the search term" do
+      within("#search") do
+        find_field("term").value.should == "Kind Of Blue"
       end
     end
 

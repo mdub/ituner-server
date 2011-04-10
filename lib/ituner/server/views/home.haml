@@ -21,6 +21,7 @@
   - if @search_results
     %hr
     %form#request(method="POST" action="/request")
+      %input(name="term" type="hidden"){:value => params["term"]}
       %ul.results
         - @search_results.each do |track|
           %li.track 
